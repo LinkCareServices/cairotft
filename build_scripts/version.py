@@ -70,6 +70,7 @@ def write_release_version(version):
 
 
 def get_git_version(abbrev=4):
+    """Retrieve project version based on git tagging system."""
     # Read in the version that's currently in RELEASE-VERSION.
 
     release_version = read_release_version()

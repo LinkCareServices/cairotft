@@ -4,6 +4,7 @@
 *.orig
 *.log
 cairotft/RELEASE-VERSION
+RELEASE-VERSION
 
 tmp
 build
