@@ -1,0 +1,13 @@
+*.pyc
+*.egg-info
+*.swp
+*.orig
+*.log
+cairotft/RELEASE-VERSION
+
+tmp
+build
+dist
+eggs/
+_build
+

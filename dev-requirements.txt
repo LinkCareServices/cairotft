@@ -1,0 +1,8 @@
+nose
+coverage
+flake8
+mock
+pylint
+sphinx
+ipython
+pudb

@@ -1,0 +1,4 @@
+include README*.rst
+include NEWS.rst
+include build_scripts/*.py
+include cairotft/RELEASE-VERSION
