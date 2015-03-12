@@ -97,4 +97,4 @@ def get_git_version(abbrev=4):
 
     # Finally, return the current version.
 
-    return version
+    return version.decode('utf-8')
