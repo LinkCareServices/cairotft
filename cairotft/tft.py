@@ -98,9 +98,9 @@ class TftDisplay():
         :type ctx: :class:`cairocffi.Context`
         :param color: 4 int tuple reprensentig the rgba color.
         """
-        self.ctx.set_source_rgba(*color)
-        self.ctx.rectangle(0, 0, self.width, self.height)
-        self.ctx.fill()
+        ctx.set_source_rgba(*color)
+        ctx.rectangle(0, 0, self.width, self.height)
+        ctx.fill()
         if blit:
             self.blit()
 

@@ -101,7 +101,7 @@ class SVGImage():
     def get_intrinsic_size(self, _image_resolution):
         """Return a tuple: (intrinsic_width, intrinsic_height)."""
         # Vector images are affected by the 'image-resolution' property.
-        return self._intrinsic_width, self._intrinsic_height
+        return self.intrinsic_width, self.intrinsic_height
 
     def _render(self):
         """Draw to a cairo surface but do not write to a file.

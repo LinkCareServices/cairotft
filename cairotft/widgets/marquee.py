@@ -108,9 +108,9 @@ class Marquee():
         self.smooth_text_width = int(x_advance_text)
         self.max_offset = self.smooth_text_width
 
-        (x_bearing, y_bearing,
+        (_, y_bearing,
          width, height,
-         x_advance, y_advance) = ctx.text_extents(self.full_text)
+         x_advance, _) = ctx.text_extents(self.full_text)
         self.smooth_full_height = int(height)
         self.smooth_full_width = int(max(x_advance, width))
         self.smooth_pos_y = int(-y_bearing)
@@ -167,9 +167,7 @@ class Marquee():
         else:
             new_text = self.text[self._pos:]
         while True:
-            (x_bearing, y_bearing,
-             width, height,
-             x_advance, y_advance) = ctx.text_extents(new_text)
+            (_, _, _, _, x_advance, _) = ctx.text_extents(new_text)
             if x_advance > self.width:
                 new_text = new_text[:-1]  # + '…'
             else:

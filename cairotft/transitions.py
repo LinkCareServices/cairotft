@@ -282,14 +282,15 @@ class BounceTransition(BaseTransition):
         :param float progress: the wanted progression of the transition.
         """
         value = 0
-        a = 0
-        b = 1
+        p_a = 0
+        p_b = 1
         while True:
-            if progress >= (7 - 4 * a) / 11:
-                value = b * b - math.pow((11 - 6 * a - 11 * progress) / 4, 2)
+            if progress >= (7 - 4 * p_a) / 11:
+                value = p_b * p_b - math.pow(
+                    (11 - 6 * p_a - 11 * progress) / 4, 2)
                 break
-            a += b
-            b /= 2
+            p_a += p_b
+            p_b /= 2
         return value
 
 
