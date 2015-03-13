@@ -1,8 +1,53 @@
+# ===== unit tests
+# ============================================================================
+# == UNIT TESTS ==============================================================
+# ============================================================================
+
+# == nose == licence: LGPL ==
+# used for: unittesting
 nose
+
+# == coverage == licence: BSD ==
+# used for: test coverage check
 coverage
-flake8
-mock
+
+# == testtools == licence: MIT ==
+# used for: better unittest library
+# there are pylint error on versions > 1.5.0: for now, we keep 1.5.0 for now
+testtools == 1.5.0
+
+# ============================================================================
+# == CODE CHECKING  ==========================================================
+# ============================================================================
+
+# == pylint == licence: GPL  ==
+# used for:
 pylint
+
+# == flake8 == licence: MIT ==
+# used for: linter (integrates pep8, pyflakes, etc...)
+flake8
+
+# == flake8-docstrings == licence: MIT ==
+# used for: plugin for flake8 for docstring lints (PEP257)
+flake8-docstrings
+
+# ============================================================================
+# == DOC =====================================================================
+# ============================================================================
+
+# == sphinx == licence: BSD ==
+# used for: generate documentation
 sphinx
+
+# ============================================================================
+# == DEVELOPMENT AND DEBUGGING ===============================================
+# ============================================================================
+
+# == ipython == licence: BSD ==
+# used for: debugging
 ipython
+
+# == pudb == licence: MIT ==
+# used for: better pbd
 pudb

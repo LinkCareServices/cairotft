@@ -1,2 +1,7 @@
+# == cairocffi == licence: BSD ==
+# used for: CFFI-based cairo bindings for Python
 cairocffi
+
+# == cairosvg == licence: LGPLv3+ ==
+# used for: SVG converter based on Cairo
 cairosvg

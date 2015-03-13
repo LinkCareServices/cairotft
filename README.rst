@@ -24,7 +24,7 @@ Fonctionnalities
   * blick icon
   * text marquee
 * included animation transitions formulas like mootools.Fx.Transitions
-* asyncio event loop
+* uses asyncio event loop
 * ... (more in the future)
 
 Installation
