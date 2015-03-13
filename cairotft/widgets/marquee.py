@@ -213,8 +213,6 @@ class Marquee():
         """Show the text."""
         if not self._stop and self._showing:
             # here at each frame, move the text and display it.
-            # TODO optimisation: do not redraw when we have no change
-            # (ie no cycle and no colour change)
             if (self.color_changed or self._should_scroll) and not self.smooth:
                 # erase the text box
                 ctx.set_source_rgba(*self.background_color)
