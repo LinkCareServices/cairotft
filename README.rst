@@ -27,6 +27,14 @@ Fonctionnalities
 * uses asyncio event loop
 * ... (more in the future)
 
+Documentation
+-------------
+
+See the full documentation on readthedocs:
+
+.. image:: https://readthedocs.org/projects/cairotft/badge/?version=latest
+    :target: http://cairotft.readthedocs.org
+
 Installation
 ------------
 
