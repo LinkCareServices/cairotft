@@ -1,6 +1,11 @@
 cairotft package
 ================
 
+.. automodule:: cairotft
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Subpackages
 -----------
 
@@ -45,10 +50,3 @@ cairotft.transitions module
     :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: cairotft
-    :members:
-    :undoc-members:
-    :show-inheritance:

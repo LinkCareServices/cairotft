@@ -1,2 +1,2 @@
 #!/bin/sh
-sphinx-apidoc -f -o source_doc ../cairotft
+sphinx-apidoc -f -M -o source_doc ../cairotft

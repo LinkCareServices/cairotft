@@ -4,6 +4,9 @@ cairotft
 .. image:: https://readthedocs.org/projects/cairotft/badge/?version=latest
    :target: http://cairotft.readthedocs.org
 
+.. image:: https://img.shields.io/badge/github-forkme-lightgrey.svg
+    :target: https://github.com/LinkCareServices/cairotft
+
 .. image:: https://img.shields.io/pypi/l/cairotft.svg?style=flat
 
 .. image:: https://img.shields.io/pypi/v/cairotft.svg?style=flat
@@ -25,7 +28,7 @@ See LICENSE.txt
 Fonctionnalities
 ----------------
 
-* support python 3.4 (only tested on python 3.4)
+* support python 3.4 (only tested on python 3.4 for now)
 * support double-buffering
 * included with widgets:
 

@@ -1,6 +1,11 @@
 cairotft.widgets package
 ========================
 
+.. automodule:: cairotft.widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -21,10 +26,3 @@ cairotft.widgets.marquee module
     :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: cairotft.widgets
-    :members:
-    :undoc-members:
-    :show-inheritance:

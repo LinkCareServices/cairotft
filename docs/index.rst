@@ -8,6 +8,8 @@ cairotft documentation
     :glob:
 
     overview
+    how to use
+    examples/index
     source_doc/cairotft
     todo
 
