@@ -3,6 +3,7 @@
 *.swp
 *.orig
 *.log
+.pypirc
 cairotft/RELEASE-VERSION
 RELEASE-VERSION
 
