@@ -264,7 +264,7 @@ class Marquee():
             self._old_background_color = self.background_color
 
             if not no_loop:
-                self.display_object.io_loop.call_later(
+                self.display_object.loop.call_later(
                     self.interval_time, self.show, ctx)
 
     def start(self, ctx):
@@ -278,7 +278,7 @@ class Marquee():
             else:
                 self._shrink_text(ctx)
 
-            self.display_object.io_loop.call_soon(
+            self.display_object.loop.call_soon(
                 self.show, ctx)
 
     def stop(self):

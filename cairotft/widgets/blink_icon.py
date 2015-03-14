@@ -78,7 +78,7 @@ class BlinkIcon():
                 height=self.height,
                 enlarge=True)
             self.display_object.blit()
-            self.display_object.io_loop.call_later(
+            self.display_object.loop.call_later(
                 self.on_time, self.hide, ctx)
 
     def hide(self, ctx):
@@ -89,7 +89,7 @@ class BlinkIcon():
             ctx.fill()
             self.display_object.blit()
 
-            self.display_object.io_loop.call_later(
+            self.display_object.loop.call_later(
                 self.off_time, self.show, ctx)
         else:
             self._showing = False
@@ -99,7 +99,7 @@ class BlinkIcon():
         if not self._showing:
             self._showing = True
             self._stop = False
-            self.display_object.io_loop.call_soon(
+            self.display_object.loop.call_soon(
                 self.show, ctx)
 
     def stop(self):

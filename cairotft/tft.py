@@ -35,7 +35,30 @@ from cairotft import linuxfb
 
 class TftDisplay():
 
-    """Display class for the tft display."""
+    """Display class for the tft display.
+
+    :ivar fb_interface: (:py:class:`str`) framebuffer interface
+        name (ex: /dev/fb0)
+    :ivar cairo_format: (:py:class:`int`) cairo pixel format.
+        see cairocffi documentation:
+        https://pythonhosted.org/cairocffi/api.html#pixel-format
+    :ivar _fbmem: (:class:`cairotft.linuxfb.FbMem`) framebuffer memory
+        interface. This object is the memory interface to the screen.
+    :ivar _buffermem: (ctypes array of c_char) memory buffer.
+        This object is the memory buffer for the double buffer.
+    :ivar surf: (:class:`cairocffi.ImageSurface`) cairo surface pointing to
+        the actual screen.
+    :ivar buffer_surf: (:class:`cairocffi.ImageSurface`) cairo surface pointing
+        to the double buffer.
+    :ivar width: (:py:class:`int`) width of the screen in pixels.
+    :ivar height: (:py:class:`int`) height of the screen in pixels.
+    :ivar size_per_pixel: (:py:class:`int`) number of bytes per pixel.
+    :ivar ctx: (:class:`cairocffi.Context`) cairocffi default context.
+        This context draws in the double (memory) buffer.
+    :ivar screen_ctx: (:class:`cairocffi.Context`) cairocffi context to draw
+        directly on the screen.
+    :ivar loop: (:py:class:`asyncio.BaseEventLoop`) The main event loop.
+    """
 
     def __init__(self, interface='/dev/fb0', cairo_format=cairo.FORMAT_ARGB32):
         """Initialisation of the class.
@@ -50,23 +73,23 @@ class TftDisplay():
         # two memory buffers:
         #     * fbmem for direct draw on the screen
         #     * buffermem: memory buffer for double buffering.
-        self.fbmem = linuxfb.open_fbmem(self.fb_interface)
-        self.buffermem = linuxfb.memory_buffer(self.fbmem.fix_info.smem_len)
+        self._fbmem = linuxfb.open_fbmem(self.fb_interface)
+        self._buffermem = linuxfb.memory_buffer(self._fbmem.fix_info.smem_len)
 
         # two cairo surface, directly on the screen and in the memory buffer.
         self.surf = linuxfb.cairo_surface_from_fbmem(
-            self.fbmem,
-            self.fbmem.mmap,
+            self._fbmem,
+            self._fbmem.mmap,
             cairo_format)
         self.buffer_surf = linuxfb.cairo_surface_from_fbmem(
-            self.fbmem,
-            self.buffermem,
+            self._fbmem,
+            self._buffermem,
             cairo_format)
 
         # calculates width and height of the screen
         self.width, self.height = self.surf.get_width(), self.surf.get_height()
-        self.size_per_pixel = self.fbmem.fix_info.smem_len / (self.width *
-                                                              self.height)
+        self.size_per_pixel = self._fbmem.fix_info.smem_len / (self.width *
+                                                               self.height)
         # by default we write only in buffer using self.ctx
         self.ctx = cairo.Context(self.buffer_surf)
 
@@ -75,7 +98,7 @@ class TftDisplay():
         self.screen_ctx = cairo.Context(self.surf)
 
         # async io loop
-        self.io_loop = asyncio.get_event_loop()
+        self.loop = asyncio.get_event_loop()
 
     def blit(self):
         """Display the buffer in the screen.
@@ -89,7 +112,7 @@ class TftDisplay():
         """Close the interface."""
         # Back to black background
         self.blank_screen(self.ctx)
-        linuxfb.close_fbmem(self.fbmem)
+        linuxfb.close_fbmem(self._fbmem)
 
     def blank_screen(self, ctx, color=(0, 0, 0, 1), blit=True):
         """Blank the screen with the given color.
@@ -105,17 +128,21 @@ class TftDisplay():
             self.blit()
 
     def draw_interface(self, ctx):
-        """Method that should be overriden by subclasses."""
+        """Method that should be overriden by subclasses.
+
+        :param ctx: cairocffi context
+        :type ctx: :class:`cairocffi.Context`
+        """
         raise NotImplementedError
 
     def run(self):
         """main loop."""
         # just afer loop is started, draw the interface
-        self.io_loop.call_soon(self.draw_interface, self.ctx)
+        self.loop.call_soon(self.draw_interface, self.ctx)
         try:
-            self.io_loop.run_forever()
+            self.loop.run_forever()
         except KeyboardInterrupt:
             pass
         finally:
-            self.io_loop.close()
+            self.loop.close()
             self.close()
