@@ -4,6 +4,7 @@
 *.orig
 *.log
 .pypirc
+upload_pypi
 cairotft/RELEASE-VERSION
 RELEASE-VERSION
 

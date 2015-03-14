@@ -1,6 +1,14 @@
 cairotft
 ========
 
+.. image:: https://readthedocs.org/projects/cairotft/badge/?version=latest
+   :target: http://cairotft.readthedocs.org
+
+.. image:: https://img.shields.io/pypi/l/cairotft.svg?style=flat
+
+.. image:: https://img.shields.io/pypi/v/cairotft.svg?style=flat
+    :target: https://pypi.python.org/pypi/cairotft
+
 cairotft is a small module for Python (3.4+) used to draw interface on
 tft screen using the framebuffer interface.
 
@@ -30,10 +38,8 @@ Fonctionnalities
 Documentation
 -------------
 
-See the full documentation on readthedocs:
+See the full documentation on readthedocs: http://cairotft.readthedocs.org
 
-.. image:: https://readthedocs.org/projects/cairotft/badge/?version=latest
-    :target: http://cairotft.readthedocs.org
 
 Installation
 ------------
