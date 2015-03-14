@@ -1,14 +1,13 @@
-=====================
+======================
 cairotft documentation
-=====================
-
-Contents:
+======================
 
 .. toctree::
     :maxdepth: 5
     :numbered:
     :glob:
 
+    overview
     source_doc/cairotft
     todo
 

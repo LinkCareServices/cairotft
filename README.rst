@@ -4,9 +4,9 @@ cairotft
 cairotft is a small module for Python (3.4+) used to draw interface on
 tft screen using the framebuffer interface.
 
-.. info:: it's first designed for tft screens, but cairotft can draw
-          interface on any framebuffer interface; like the default
-          /dev/fb0 on linux consoles.
+It's first designed for tft screens, but cairotft can draw
+interface on any framebuffer interface;
+like the default /dev/fb0 on linux consoles.
 
 Licence
 -------
