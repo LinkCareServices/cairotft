@@ -33,7 +33,14 @@ Installation
 from pypi
 *********
 
-TBD
+* create a virtualenv::
+
+    pyvenv-3.4 ~/.virtualenvs/cairotft
+    source ~/.virtualenvs/cairotft/bin/activate
+
+* install the package::
+
+    pip install cairotft
 
 from sources
 ************
