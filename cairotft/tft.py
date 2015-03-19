@@ -42,6 +42,10 @@ class TftDisplay():
     :ivar cairo_format: (:py:class:`int`) cairo pixel format.
         see cairocffi documentation:
         https://pythonhosted.org/cairocffi/api.html#pixel-format
+    :ivar fps: (:py:class:`int`) forced fps
+    :ivar _blit_flag: (:py:class:`bool`) used in forced fps mode: each blit()
+        call will activate the blit flag in order to do a real buffer copy
+        in the next blit.
     :ivar _fbmem: (:class:`cairotft.linuxfb.FbMem`) framebuffer memory
         interface. This object is the memory interface to the screen.
     :ivar _buffermem: (ctypes array of c_char) memory buffer.
@@ -60,15 +64,37 @@ class TftDisplay():
     :ivar loop: (:py:class:`asyncio.BaseEventLoop`) The main event loop.
     """
 
-    def __init__(self, interface='/dev/fb0', cairo_format=cairo.FORMAT_ARGB32):
+    def __init__(self, interface='/dev/fb0', cairo_format=cairo.FORMAT_ARGB32,
+                 fps=None):
         """Initialisation of the class.
 
         :param str interface: framebuffer interface name
         :param int cairo_format: the pixel format.
             see: https://pythonhosted.org/cairocffi/api.html#pixel-format
+        :param int fps: a forced fps.
+            * If no forced fps is given (fps=None),
+              each blit() call will copy the memory buffer into the screen
+              buffer.
+            * If a forced fps is given, each call to :class:`TftDisplay.blit`
+              will not redraw the screen but only trigger a redraw for the
+              next frame. The 'real' blit is called every 1/fps seconds.
+
+              .. warning:: choose your fps carefully: if you choose a to high
+                 fps for your hardware, the application may pass all its time
+                 to redraw the screen instead of actually really drawing
+                 objects.
+
+                 Also, take care of the bus speed and size that defines a max
+                 fps. For example a SPI screen with 480x272 resolution in
+                 16bits a 20 Mhz has an absolute max FPS of:
+                 20 000 000 / (480 * 272 * 2 * 8) = 9.57 fps
+                 (without taking care of the spi communications overhead)
+
         """
         self.fb_interface = interface
         self.cairo_format = cairo_format
+        self.fps = fps
+        self._blit_flag = False
 
         # two memory buffers:
         #     * fbmem for direct draw on the screen
@@ -100,13 +126,26 @@ class TftDisplay():
         # async io loop
         self.loop = asyncio.get_event_loop()
 
-    def blit(self):
+    def blit(self, force=False):
         """Display the buffer in the screen.
 
         Take the content of the memory buffer and draw it on the screen.
+
+        :param bool force: if force is True, force a buffer copy, even in fps
+            mode.
         """
-        self.screen_ctx.set_source_surface(self.buffer_surf)
-        self.screen_ctx.paint()
+        if self.fps is None or force:
+            self.screen_ctx.set_source_surface(self.buffer_surf)
+            self.screen_ctx.paint()
+        else:
+            self._blit_flag = True
+
+    def fps_call(self):
+        """force a redraw screen. Called every x ms when fps mode is set."""
+        if self._blit_flag:
+            self.blit(force=True)
+            self._blit_flag = False
+        self.loop.call_later(1 / self.fps, self.fps_call)
 
     def close(self):
         """Close the interface."""
@@ -139,6 +178,8 @@ class TftDisplay():
         """main loop."""
         # just afer loop is started, draw the interface
         self.loop.call_soon(self.draw_interface, self.ctx)
+        if self.fps:
+            self.loop.call_later(1 / self.fps, self.fps_call)
         try:
             self.loop.run_forever()
         except KeyboardInterrupt:

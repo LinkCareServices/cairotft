@@ -1,5 +1,5 @@
-cairotft overview
-=================
+overview
+========
 
 cairotft is a python module used to draw interface on
 tft screen using the framebuffer interface.
