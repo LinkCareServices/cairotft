@@ -44,6 +44,7 @@ if tags.has('maintenance'):
 else:
     autodoc_default_flags = ['members', 'undoc-members',
                              'private-members']
+autoclass_content = 'both'
 
 autosummary_generate = True
 

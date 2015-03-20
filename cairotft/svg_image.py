@@ -121,8 +121,9 @@ class SVGImage():
         :param fram: tuple of int (width, eight)
         :param bool enlarge: if True, do not only shrink, also enlarge.
 
-        :returns= a (widht, eight) tuple representing the target size of the
+        :returns: a (widht, eight) tuple representing the target size of the
             object.
+
         (thanks to jon for this method)
         """
         image_width, image_height = image

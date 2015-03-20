@@ -9,9 +9,7 @@ cairotft documentation
 
     overview
     how to use
-    examples/index
-    source_doc/cairotft
-    todo
+    source_doc/modules
 
 
 Indices and tables
