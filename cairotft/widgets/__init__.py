@@ -28,5 +28,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 """widgets."""
 
+from .base import BaseWidget
 from .blink_icon import BlinkIcon
 from .marquee import Marquee

@@ -264,7 +264,6 @@ class Marquee():
             self._old_background_color = self.background_color
 
             if not no_loop:
-
                 if self.display_object.fps is not None:
                     interval_time = max(self.interval_time,
                                         1 / self.display_object.fps)
