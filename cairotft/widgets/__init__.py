@@ -28,6 +28,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 """widgets."""
 
+# base widgets: uses this class to write your own widget
 from .base import BaseWidget
+from .base import BaseAnimatedWidget
+
+# predefined widgets
 from .blink_icon import BlinkIcon
 from .marquee import Marquee

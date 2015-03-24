@@ -138,6 +138,7 @@ class BaseAnimatedWidget(BaseWidget):
         """show the icon."""
         if not self._stop:
             # here call the draw method (which includes the eventual blit)
+            self._showing = True
             self.draw(ctx)
             # the call the next show
             self.display_object.loop.call_later(

@@ -28,13 +28,16 @@
 # POSSIBILITY OF SUCH DAMAGE.
 """BlinkIcon widget."""
 
+from . import base
 
-class BlinkIcon():
+
+class BlinkIcon(base.BaseAnimatedWidget):
 
     """A svg icon that can blink."""
 
-    def __init__(self, display_object, svg_icon,
+    def __init__(self, display_object,
                  pos_x, pos_y, width, height,
+                 svg_icon,
                  background_color=(1, 1, 1, 1),
                  on_time=0.5, off_time=0.5):
         """Initialisation of the bliking Icon.
@@ -55,31 +58,22 @@ class BlinkIcon():
         TODO: instead of repainting with a color, save the background before
               painting the icon
         """
-        self._stop = False
-        self._showing = False
-        self.display_object = display_object
+        super().__init__(display_object, pos_x, pos_y, width, height)
         self.svg_icon = svg_icon
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.width = width
-        self.height = height
         self.background_color = background_color
         self.on_time = on_time
         self.off_time = off_time
 
-    def show(self, ctx):
-        """show the icon."""
-        if not self._stop:
-            self.svg_icon.draw(
-                context=ctx,
-                pos_x=self.pos_x,
-                pos_y=self.pos_y,
-                width=self.width,
-                height=self.height,
-                enlarge=True)
-            self.display_object.blit()
-            self.display_object.loop.call_later(
-                self.on_time, self.hide, ctx)
+    def draw(self, ctx):
+        """draw the widget."""
+        self.svg_icon.draw(
+            context=ctx,
+            pos_x=self.pos_x,
+            pos_y=self.pos_y,
+            width=self.width,
+            height=self.height,
+            enlarge=True)
+        self.display_object.blit()
 
     def hide(self, ctx):
         """hide the icon."""
@@ -94,15 +88,11 @@ class BlinkIcon():
         else:
             self._showing = False
 
-    def start(self, ctx):
-        """Start showing the bliking icon."""
-        if not self._showing:
-            self._showing = True
-            self._stop = False
-            self.display_object.loop.call_soon(
-                self.show, ctx)
-
-    def stop(self):
-        """stop showing blinking icon."""
-        self._stop = True
-        self._showing = False
+    def show(self, ctx):
+        """show the icon."""
+        if not self._stop:
+            # here call the draw method (which includes the eventual blit)
+            self.draw(ctx)
+            # the call the next show
+            self.display_object.loop.call_later(
+                self.on_time, self.hide, ctx)

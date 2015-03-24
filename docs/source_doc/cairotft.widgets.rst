@@ -9,6 +9,14 @@ cairotft.widgets package
 Submodules
 ----------
 
+cairotft.widgets.base module
+----------------------------
+
+.. automodule:: cairotft.widgets.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cairotft.widgets.blink_icon module
 ----------------------------------
 

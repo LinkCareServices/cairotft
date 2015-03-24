@@ -85,3 +85,29 @@ Result
 ******
 
 .. image:: examples/simple/simple.png
+
+widgets
+-------
+
+blinking icon widget
+********************
+
+blink icon is a simple widget displaying a blinking svg icon.
+
+Here is a sample usage:
+
+.. literalinclude:: examples/widgets/blinkicon/blinkicon.py
+   :language: python
+   :linenos:
+
+.. note:: you may need to be root to access to the framebuffer device.
+
+Some Explanations
+"""""""""""""""""
+
+In addition to the simple example, we override the __init__() in order to
+instanciate a :class:`cairotft.widgets.blink_icon.BlinkIcon` object.
+
+Then in draw_interface we starts the blinking.
+
+That's all.
